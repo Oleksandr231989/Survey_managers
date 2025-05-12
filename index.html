@@ -311,38 +311,9 @@
             </div>
             
             <div class="question" id="q2Question">
-                <label>2. What were the strengths of the 2024 annual performance review? <span class="required">*</span></label>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q2" value="Process">
-                        Process
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q2" value="Tool">
-                        Tool
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q2" value="Clarity of communication">
-                        Clarity of communication
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q2" value="All of the above">
-                        All of the above
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q2" value="None">
-                        None
-                    </label>
-                </div>
-                <div class="error-message">Please select an option</div>
+                <label for="q2">2. What were the strengths of the 2024 annual performance review? <span class="required">*</span></label>
+                <textarea id="q2" name="q2"></textarea>
+                <div class="error-message">Please provide your response</div>
             </div>
             
             <div class="question" id="q3Question">
@@ -790,7 +761,7 @@
                 const formData = {
                     country: document.getElementById('country').value,
                     q1: document.querySelector('input[name="q1"]:checked')?.value || '',
-                    q2: document.querySelector('input[name="q2"]:checked')?.value || '',
+                    q2: document.getElementById('q2').value,
                     q3: document.getElementById('q3').value,
                     q4: document.querySelector('input[name="q4"]:checked')?.value || '',
                     q5: document.querySelector('input[name="q5"]:checked')?.value || '',
