@@ -212,6 +212,35 @@
         #thankYouPage {
             display: none;
         }
+        
+        /* Loading indicator */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            display: none;
+        }
+        
+        .is-loading .loading-text {
+            display: inline;
+        }
+        
+        .is-loading .normal-text {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -606,7 +635,10 @@
             
             <div class="button-group">
                 <button type="button" class="btn-prev" onclick="goToPreviousPage()">← Previous</button>
-                <button type="button" class="btn-submit" onclick="submitForm()">Submit</button>
+                <button type="button" class="btn-submit" onclick="submitForm()">
+                    <span class="normal-text">Submit</span>
+                    <span class="loading-text">Submitting...</span>
+                </button>
             </div>
         </div>
         
@@ -741,6 +773,19 @@
         // Function to submit the form
         function submitForm() {
             if (validatePage2()) {
+                // Show loading state
+                const submitButton = document.querySelector('.btn-submit');
+                submitButton.disabled = true;
+                
+                // Add spinner if not already present
+                let spinner = submitButton.querySelector('.spinner');
+                if (!spinner) {
+                    spinner = document.createElement('span');
+                    spinner.className = 'spinner';
+                    submitButton.prepend(spinner);
+                }
+                spinner.style.display = 'inline-block';
+                
                 // Collect all form data
                 const formData = {
                     country: document.getElementById('country').value,
@@ -761,13 +806,61 @@
                     q15: document.querySelector('input[name="q15"]:checked')?.value || ''
                 };
                 
-                // Log the form data (in a real app, you would send this to a server)
-                console.log('Form data submitted:', formData);
+                console.log('Form data being sent:', JSON.stringify(formData));
                 
-                // Show thank you page
-                document.getElementById('page2').style.display = 'none';
-                document.getElementById('thankYouPage').style.display = 'block';
-                window.scrollTo(0, 0);
+                // Use XMLHttpRequest to send data to the API
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/api/submit-manager-survey.js');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                
+                xhr.onload = function() {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        console.log('Success response:', xhr.responseText);
+                        try {
+                            const result = JSON.parse(xhr.responseText);
+                            // Show thank you page
+                            document.getElementById('page2').style.display = 'none';
+                            document.getElementById('thankYouPage').style.display = 'block';
+                            window.scrollTo(0, 0);
+                        } catch (e) {
+                            console.error('Error parsing response:', e);
+                            alert('Error processing response. Please try again or contact support.');
+                            
+                            // Reset button state
+                            submitButton.disabled = false;
+                            spinner.style.display = 'none';
+                        }
+                    } else {
+                        console.error('Error response:', xhr.status, xhr.responseText);
+                        try {
+                            const errorResult = JSON.parse(xhr.responseText);
+                            alert('Error: ' + (errorResult.error || 'Failed to submit survey') + '. Please try again or contact support.');
+                        } catch (e) {
+                            alert('Error submitting survey. Please try again or contact support.');
+                        }
+                        
+                        // Reset button state
+                        submitButton.disabled = false;
+                        spinner.style.display = 'none';
+                    }
+                };
+                
+                xhr.onerror = function() {
+                    console.error('Network error occurred');
+                    alert('Network error occurred. Please check your connection and try again.');
+                    
+                    // Reset button state
+                    submitButton.disabled = false;
+                    spinner.style.display = 'none';
+                };
+                
+                xhr.send(JSON.stringify(formData));
+            } else {
+                // Scroll to the first error
+                const firstError = document.querySelector('.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
             }
         }
         
