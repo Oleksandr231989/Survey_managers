@@ -29,6 +29,7 @@
             color: white;
             padding: 20px;
             text-align: center;
+            position: relative;
         }
         
         .header h1 {
@@ -43,6 +44,36 @@
         
         .form-container {
             padding: 24px;
+        }
+        
+        /* Language toggle */
+        .language-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: white;
+            border-radius: 20px;
+            display: inline-flex;
+            padding: 2px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .language-toggle button {
+            border: none;
+            padding: 6px 12px;
+            font-weight: 600;
+            cursor: pointer;
+            background: transparent;
+            position: relative;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .language-toggle button.active {
+            background-color: #4285f4;
+            color: white;
+            border-radius: 18px;
         }
         
         /* Section styling */
@@ -246,14 +277,18 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>2024 Annual Performance & Compensation Cycles - Managers Survey</h1>
-            <p>Your feedback will help us make your next experience even better!</p>
+            <div class="language-toggle">
+                <button id="en-btn" class="active" onclick="switchLanguage('en')">EN</button>
+                <button id="fr-btn" onclick="switchLanguage('fr')">FR</button>
+            </div>
+            <h1 id="survey-title">2024 Annual Performance & Compensation Cycles - Managers Survey</h1>
+            <p id="survey-subtitle">Your feedback will help us make your next experience even better!</p>
         </div>
         
         <!-- Page 1 -->
         <div id="page1" class="form-container">
             <div class="question" id="countryQuestion">
-                <label for="country">Select your country: <span class="required">*</span></label>
+                <label for="country" id="country-label">Select your country: <span class="required">*</span></label>
                 <select id="country" name="country">
                     <option value="">-- Select Country --</option>
                     <option value="Belgium">Belgium</option>
@@ -274,358 +309,674 @@
                     <option value="USA">USA</option>
                     <option value="Vietnam">Vietnam</option>
                 </select>
-                <div class="error-message">Please select your country</div>
+                <div class="error-message" id="country-error">Please select your country</div>
             </div>
             
             <div class="section-header">
-                <h2>Part 1: 2024 Annual performance cycle</h2>
+                <h2 id="part1-title">Part 1: 2024 Annual performance cycle</h2>
             </div>
             
             <div class="question" id="q1Question">
-                <label>1. How satisfied are you with the 2024 annual performance review? <span class="required">*</span></label>
+                <label id="q1-label">1. How satisfied are you with the 2024 annual performance review? <span class="required">*</span></label>
                 <div class="option">
                     <label>
                         <input type="radio" name="q1" value="Fully satisfied">
-                        Fully satisfied
+                        <span id="q1-opt1">Fully satisfied</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q1" value="Mostly satisfied">
-                        Mostly satisfied
+                        <span id="q1-opt2">Mostly satisfied</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q1" value="Mostly unsatisfied">
-                        Mostly unsatisfied
+                        <span id="q1-opt3">Mostly unsatisfied</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q1" value="Very unsatisfied">
-                        Very unsatisfied
+                        <span id="q1-opt4">Very unsatisfied</span>
                     </label>
                 </div>
-                <div class="error-message">Please select an option</div>
+                <div class="error-message" id="q1-error">Please select an option</div>
             </div>
             
             <div class="question" id="q2Question">
-                <label for="q2">2. What were the strengths of the 2024 annual performance review? <span class="required">*</span></label>
+                <label for="q2" id="q2-label">2. What were the strengths of the 2024 annual performance review? <span class="required">*</span></label>
                 <textarea id="q2" name="q2"></textarea>
-                <div class="error-message">Please provide your response</div>
+                <div class="error-message" id="q2-error">Please provide your response</div>
             </div>
             
             <div class="question" id="q3Question">
-                <label for="q3">3. What would be your recommendations for improvement for the 2024 annual performance review? <span class="required">*</span></label>
+                <label for="q3" id="q3-label">3. What would be your recommendations for improvement for the 2024 annual performance review? <span class="required">*</span></label>
                 <textarea id="q3" name="q3"></textarea>
-                <div class="error-message">Please provide your response</div>
+                <div class="error-message" id="q3-error">Please provide your response</div>
             </div>
             
             <div class="question" id="q4Question">
-                <label>4. Did you face any challenges during the 2024 annual performance review? <span class="required">*</span></label>
+                <label id="q4-label">4. Did you face any challenges during the 2024 annual performance review? <span class="required">*</span></label>
                 <div class="option">
                     <label>
                         <input type="radio" name="q4" value="Yes" onchange="toggleConditionalQuestion('q5ConditionalQuestion', true)">
-                        Yes
+                        <span id="q4-opt1">Yes</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q4" value="No" onchange="toggleConditionalQuestion('q5ConditionalQuestion', false)">
-                        No
+                        <span id="q4-opt2">No</span>
                     </label>
                 </div>
-                <div class="error-message">Please select an option</div>
+                <div class="error-message" id="q4-error">Please select an option</div>
             </div>
             
             <div class="conditional-question" id="q5ConditionalQuestion">
                 <div class="question" id="q5Question">
-                    <label>5. If yes, please specify the main challenge: <span class="required">*</span></label>
+                    <label id="q5-label">5. If yes, please specify the main challenge: <span class="required">*</span></label>
                     <div class="option">
                         <label>
                             <input type="radio" name="q5" value="Tool">
-                            Tool
+                            <span id="q5-opt1">Tool</span>
                         </label>
                     </div>
                     <div class="option">
                         <label>
                             <input type="radio" name="q5" value="Process">
-                            Process
+                            <span id="q5-opt2">Process</span>
                         </label>
                     </div>
                     <div class="option">
                         <label>
                             <input type="radio" name="q5" value="Clarity of communication">
-                            Clarity of communication
+                            <span id="q5-opt3">Clarity of communication</span>
                         </label>
                     </div>
                     <div class="option">
                         <label>
                             <input type="radio" name="q5" value="All of the above">
-                            All of the above
+                            <span id="q5-opt4">All of the above</span>
                         </label>
                     </div>
-                    <div class="error-message">Please select an option</div>
+                    <div class="error-message" id="q5-error">Please select an option</div>
                 </div>
             </div>
             
             <div class="question" id="q6Question">
-                <label>6. How would you assess the support while participating in the 2024 annual performance review? <span class="required">*</span></label>
-                <p class="description">(presentation of the performance review campaign, access to information, Workday navigation understanding, answers provided, etc.)</p>
+                <label id="q6-label">6. How would you assess the support while participating in the 2024 annual performance review? <span class="required">*</span></label>
+                <p class="description" id="q6-description">(presentation of the performance review campaign, access to information, Workday navigation understanding, answers provided, etc.)</p>
                 <div class="option">
                     <label>
                         <input type="radio" name="q6" value="Excellent">
-                        Excellent
+                        <span id="q6-opt1">Excellent</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q6" value="Good">
-                        Good
+                        <span id="q6-opt2">Good</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q6" value="Light">
-                        Light
+                        <span id="q6-opt3">Light</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q6" value="Very light">
-                        Very light
+                        <span id="q6-opt4">Very light</span>
                     </label>
                 </div>
-                <div class="error-message">Please select an option</div>
+                <div class="error-message" id="q6-error">Please select an option</div>
             </div>
             
             <div class="question" id="q7Question">
-                <label>7. How would you assess the quality of the discussion with your manager while participating in the 2024 annual performance review? <span class="required">*</span></label>
+                <label id="q7-label">7. How would you assess the quality of the discussion with your manager while participating in the 2024 annual performance review? <span class="required">*</span></label>
                 <div class="option">
                     <label>
                         <input type="radio" name="q7" value="Fully satisfied">
-                        Fully satisfied
+                        <span id="q7-opt1">Fully satisfied</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q7" value="Mostly satisfied">
-                        Mostly satisfied
+                        <span id="q7-opt2">Mostly satisfied</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q7" value="Mostly unsatisfied">
-                        Mostly unsatisfied
+                        <span id="q7-opt3">Mostly unsatisfied</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q7" value="Very unsatisfied">
-                        Very unsatisfied
+                        <span id="q7-opt4">Very unsatisfied</span>
                     </label>
                 </div>
-                <div class="error-message">Please select an option</div>
+                <div class="error-message" id="q7-error">Please select an option</div>
             </div>
             
             <div class="question" id="q8Question">
-                <label>8. If you received feedback for a direct report, was it useful for their annual performance review? <span class="required">*</span></label>
+                <label id="q8-label">8. If you received feedback for a direct report, was it useful for their annual performance review? <span class="required">*</span></label>
                 <div class="option">
                     <label>
                         <input type="radio" name="q8" value="Yes" onchange="toggleConditionalQuestion('q9ConditionalQuestion', true)">
-                        Yes
+                        <span id="q8-opt1">Yes</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q8" value="No" onchange="toggleConditionalQuestion('q9ConditionalQuestion', false)">
-                        No
+                        <span id="q8-opt2">No</span>
                     </label>
                 </div>
-                <div class="error-message">Please select an option</div>
+                <div class="error-message" id="q8-error">Please select an option</div>
             </div>
             
             <div class="conditional-question" id="q9ConditionalQuestion">
                 <div class="question" id="q9Question">
-                    <label for="q9">9. If yes answered yes, please specify the main reason? <span class="required">*</span></label>
+                    <label for="q9" id="q9-label">9. If you answered yes, please specify the main reason? <span class="required">*</span></label>
                     <textarea id="q9" name="q9"></textarea>
-                    <div class="error-message">Please provide your response</div>
+                    <div class="error-message" id="q9-error">Please provide your response</div>
                 </div>
             </div>
             
             <div class="button-group">
-                <button type="button" class="btn-next" onclick="goToNextPage()">Next →</button>
+                <button type="button" class="btn-next" onclick="goToNextPage()"><span id="next-btn">Next →</span></button>
             </div>
         </div>
         
         <!-- Page 2 -->
         <div id="page2" class="form-container">
             <div class="section-header">
-                <h2>Part 2: 2024 annual compensation review cycle</h2>
+                <h2 id="part2-title">Part 2: 2024 annual compensation review cycle</h2>
             </div>
             
             <div class="question" id="q10Question">
-                <label>10. How satisfied are you with the 2024 annual compensation review? <span class="required">*</span></label>
+                <label id="q10-label">10. How satisfied are you with the 2024 annual compensation review? <span class="required">*</span></label>
                 <div class="option">
                     <label>
                         <input type="radio" name="q10" value="Fully satisfied">
-                        Fully satisfied
+                        <span id="q10-opt1">Fully satisfied</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q10" value="Mostly satisfied">
-                        Mostly satisfied
+                        <span id="q10-opt2">Mostly satisfied</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q10" value="Mostly unsatisfied">
-                        Mostly unsatisfied
+                        <span id="q10-opt3">Mostly unsatisfied</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q10" value="Very unsatisfied">
-                        Very unsatisfied
+                        <span id="q10-opt4">Very unsatisfied</span>
                     </label>
                 </div>
-                <div class="error-message">Please select an option</div>
+                <div class="error-message" id="q10-error">Please select an option</div>
             </div>
             
             <div class="question" id="q11Question">
-                <label>11. What were the strengths of the 2024 annual compensation review? <span class="required">*</span></label>
+                <label id="q11-label">11. What were the strengths of the 2024 annual compensation review? <span class="required">*</span></label>
                 <div class="option">
                     <label>
                         <input type="radio" name="q11" value="Process">
-                        Process
+                        <span id="q11-opt1">Process</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q11" value="Tool">
-                        Tool
+                        <span id="q11-opt2">Tool</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q11" value="Clarity of communication">
-                        Clarity of communication
+                        <span id="q11-opt3">Clarity of communication</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q11" value="All of the above">
-                        All of the above
+                        <span id="q11-opt4">All of the above</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q11" value="None">
-                        None
+                        <span id="q11-opt5">None</span>
                     </label>
                 </div>
-                <div class="error-message">Please select an option</div>
+                <div class="error-message" id="q11-error">Please select an option</div>
             </div>
             
             <div class="question" id="q12Question">
-                <label for="q12">12. Would you like to provide more details about your answer to question 11? <span class="required">*</span></label>
+                <label for="q12" id="q12-label">12. Would you like to provide more details about your answer to question 11? <span class="required">*</span></label>
                 <textarea id="q12" name="q12"></textarea>
-                <div class="error-message">Please provide your response</div>
+                <div class="error-message" id="q12-error">Please provide your response</div>
             </div>
             
             <div class="question" id="q13Question">
-                <label>13. What would be your recommendations for improvement for the 2024 annual compensation review? <span class="required">*</span></label>
+                <label id="q13-label">13. What would be your recommendations for improvement for the 2024 annual compensation review? <span class="required">*</span></label>
                 <div class="option">
                     <label>
                         <input type="radio" name="q13" value="Process">
-                        Process
+                        <span id="q13-opt1">Process</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q13" value="Tool">
-                        Tool
+                        <span id="q13-opt2">Tool</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q13" value="Clarity of communication">
-                        Clarity of communication
+                        <span id="q13-opt3">Clarity of communication</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q13" value="All of the above">
-                        All of the above
+                        <span id="q13-opt4">All of the above</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q13" value="None">
-                        None
+                        <span id="q13-opt5">None</span>
                     </label>
                 </div>
-                <div class="error-message">Please select an option</div>
+                <div class="error-message" id="q13-error">Please select an option</div>
             </div>
             
             <div class="question" id="q14Question">
-                <label for="q14">14. What would be your recommendations for improvement for the 2024 annual compensation review?</label>
+                <label for="q14" id="q14-label">14. What would be your recommendations for improvement for the 2024 annual compensation review?</label>
                 <textarea id="q14" name="q14"></textarea>
             </div>
             
             <div class="question" id="q15Question">
-                <label>15. What was your user experience when entering your team's individual increases in Workday? <span class="required">*</span></label>
+                <label id="q15-label">15. What was your user experience when entering your team's individual increases in Workday? <span class="required">*</span></label>
                 <div class="option">
                     <label>
                         <input type="radio" name="q15" value="Fully satisfied">
-                        Fully satisfied
+                        <span id="q15-opt1">Fully satisfied</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q15" value="Mostly satisfied">
-                        Mostly satisfied
+                        <span id="q15-opt2">Mostly satisfied</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q15" value="Mostly unsatisfied">
-                        Mostly unsatisfied
+                        <span id="q15-opt3">Mostly unsatisfied</span>
                     </label>
                 </div>
                 <div class="option">
                     <label>
                         <input type="radio" name="q15" value="Very unsatisfied">
-                        Very unsatisfied
+                        <span id="q15-opt4">Very unsatisfied</span>
                     </label>
                 </div>
-                <div class="error-message">Please select an option</div>
+                <div class="error-message" id="q15-error">Please select an option</div>
             </div>
             
             <div class="button-group">
-                <button type="button" class="btn-prev" onclick="goToPreviousPage()">← Previous</button>
+                <button type="button" class="btn-prev" onclick="goToPreviousPage()"><span id="prev-btn">← Previous</span></button>
                 <button type="button" class="btn-submit" onclick="submitForm()">
-                    <span class="normal-text">Submit</span>
-                    <span class="loading-text">Submitting...</span>
+                    <span class="normal-text" id="submit-btn">Submit</span>
+                    <span class="loading-text" id="submitting-text">Submitting...</span>
                 </button>
             </div>
         </div>
         
         <!-- Thank You Page -->
         <div id="thankYouPage" class="thank-you">
-            <h2>Thank You!</h2>
-            <p>Your feedback has been successfully submitted.</p>
-            <p>Your responses will help us improve the performance and compensation review processes.</p>
+            <h2 id="thank-you-title">Thank You!</h2>
+            <p id="thank-you-message1">Your feedback has been successfully submitted.</p>
+            <p id="thank-you-message2">Your responses will help us improve the performance and compensation review processes.</p>
         </div>
     </div>
     
     <div class="footer">
-        <p>All required fields are marked with an asterisk (*)</p>
+        <p id="required-fields-note">All required fields are marked with an asterisk (*)</p>
     </div>
     
     <script>
+        // Language settings
+        const translations = {
+            en: {
+                // Header
+                "survey-title": "2024 Annual Performance & Compensation Cycles - Managers Survey",
+                "survey-subtitle": "Your feedback will help us make your next experience even better!",
+                
+                // Country field
+                "country-label": "Select your country: <span class=\"required\">*</span>",
+                "country-error": "Please select your country",
+                
+                // Part 1
+                "part1-title": "Part 1: 2024 Annual performance cycle",
+                
+                // Q1
+                "q1-label": "1. How satisfied are you with the 2024 annual performance review? <span class=\"required\">*</span>",
+                "q1-opt1": "Fully satisfied",
+                "q1-opt2": "Mostly satisfied",
+                "q1-opt3": "Mostly unsatisfied",
+                "q1-opt4": "Very unsatisfied",
+                "q1-error": "Please select an option",
+                
+                // Q2
+                "q2-label": "2. What were the strengths of the 2024 annual performance review? <span class=\"required\">*</span>",
+                "q2-error": "Please provide your response",
+                
+                // Q3
+                "q3-label": "3. What would be your recommendations for improvement for the 2024 annual performance review? <span class=\"required\">*</span>",
+                "q3-error": "Please provide your response",
+                
+                // Q4
+                "q4-label": "4. Did you face any challenges during the 2024 annual performance review? <span class=\"required\">*</span>",
+                "q4-opt1": "Yes",
+                "q4-opt2": "No",
+                "q4-error": "Please select an option",
+                
+                // Q5
+                "q5-label": "5. If yes, please specify the main challenge: <span class=\"required\">*</span>",
+                "q5-opt1": "Tool",
+                "q5-opt2": "Process",
+                "q5-opt3": "Clarity of communication",
+                "q5-opt4": "All of the above",
+                "q5-error": "Please select an option",
+                
+                // Q6
+                "q6-label": "6. How would you assess the support while participating in the 2024 annual performance review? <span class=\"required\">*</span>",
+                "q6-description": "(presentation of the performance review campaign, access to information, Workday navigation understanding, answers provided, etc.)",
+                "q6-opt1": "Excellent",
+                "q6-opt2": "Good",
+                "q6-opt3": "Light",
+                "q6-opt4": "Very light",
+                "q6-error": "Please select an option",
+                
+                // Q7
+                "q7-label": "7. How would you assess the quality of the discussion with your manager while participating in the 2024 annual performance review? <span class=\"required\">*</span>",
+                "q7-opt1": "Fully satisfied",
+                "q7-opt2": "Mostly satisfied",
+                "q7-opt3": "Mostly unsatisfied",
+                "q7-opt4": "Very unsatisfied",
+                "q7-error": "Please select an option",
+                
+                // Q8
+                "q8-label": "8. If you received feedback for a direct report, was it useful for their annual performance review? <span class=\"required\">*</span>",
+                "q8-opt1": "Yes",
+                "q8-opt2": "No",
+                "q8-error": "Please select an option",
+                
+                // Q9
+                "q9-label": "9. If you answered yes, please specify the main reason? <span class=\"required\">*</span>",
+                "q9-error": "Please provide your response",
+                
+                // Part 2
+                "part2-title": "Part 2: 2024 annual compensation review cycle",
+                
+                // Q10
+                "q10-label": "10. How satisfied are you with the 2024 annual compensation review? <span class=\"required\">*</span>",
+                "q10-opt1": "Fully satisfied",
+                "q10-opt2": "Mostly satisfied",
+                "q10-opt3": "Mostly unsatisfied",
+                "q10-opt4": "Very unsatisfied",
+                "q10-error": "Please select an option",
+                
+                // Q11
+                "q11-label": "11. What were the strengths of the 2024 annual compensation review? <span class=\"required\">*</span>",
+                "q11-opt1": "Process",
+                "q11-opt2": "Tool",
+                "q11-opt3": "Clarity of communication",
+                "q11-opt4": "All of the above",
+                "q11-opt5": "None",
+                "q11-error": "Please select an option",
+                
+                // Q12
+                "q12-label": "12. Would you like to provide more details about your answer to question 11? <span class=\"required\">*</span>",
+                "q12-error": "Please provide your response",
+                
+                // Q13
+                "q13-label": "13. What would be your recommendations for improvement for the 2024 annual compensation review? <span class=\"required\">*</span>",
+                "q13-opt1": "Process",
+                "q13-opt2": "Tool",
+                "q13-opt3": "Clarity of communication",
+                "q13-opt4": "All of the above",
+                "q13-opt5": "None",
+                "q13-error": "Please select an option",
+                
+                // Q14
+                "q14-label": "14. What would be your recommendations for improvement for the 2024 annual compensation review?",
+                
+                // Q15
+                "q15-label": "15. What was your user experience when entering your team's individual increases in Workday? <span class=\"required\">*</span>",
+                "q15-opt1": "Fully satisfied",
+                "q15-opt2": "Mostly satisfied",
+                "q15-opt3": "Mostly unsatisfied",
+                "q15-opt4": "Very unsatisfied",
+                "q15-error": "Please select an option",
+                
+                // Buttons
+                "next-btn": "Next →",
+                "prev-btn": "← Previous",
+                "submit-btn": "Submit",
+                "submitting-text": "Submitting...",
+                
+                // Thank You page
+                "thank-you-title": "Thank You!",
+                "thank-you-message1": "Your feedback has been successfully submitted.",
+                "thank-you-message2": "Your responses will help us improve the performance and compensation review processes.",
+                
+                // Footer
+                "required-fields-note": "All required fields are marked with an asterisk (*)"
+            },
+            fr: {
+                // Header
+                "survey-title": "Cycles annuels de performance et de rémunération 2024 - Questionnaire managers",
+                "survey-subtitle": "Vos retours nous aideront à améliorer votre expérience l'année prochaine !",
+                
+                // Country field
+                "country-label": "Sélectionnez votre pays : <span class=\"required\">*</span>",
+                "country-error": "Veuillez sélectionner votre pays",
+                
+                // Part 1
+                "part1-title": "Partie 1 : Cycle annuel d'évaluation de la performance 2024",
+                
+                // Q1
+                "q1-label": "1. Quel est votre niveau de satisfaction quant au déroulé du cycle annuel d'évaluation de la performance 2024 ? <span class=\"required\">*</span>",
+                "q1-opt1": "Très satisfait",
+                "q1-opt2": "Plutôt satisfait",
+                "q1-opt3": "Plutôt insatisfait",
+                "q1-opt4": "Très insatisfait",
+                "q1-error": "Veuillez sélectionner une option",
+                
+                // Q2
+                "q2-label": "2. Quels ont été les points forts du cycle annuel d'évaluation de la performance 2024 ? <span class=\"required\">*</span>",
+                "q2-error": "Veuillez fournir votre réponse",
+                
+                // Q3
+                "q3-label": "3. Quels seraient les points d'amélioration du cycle d'évaluation de la performance 2024 ? <span class=\"required\">*</span>",
+                "q3-error": "Veuillez fournir votre réponse",
+                
+                // Q4
+                "q4-label": "4. Avez-vous été confronté(e) à des défis pendant le cycle annuel d'évaluation de performance 2024 ? <span class=\"required\">*</span>",
+                "q4-opt1": "Oui",
+                "q4-opt2": "Non",
+                "q4-error": "Veuillez sélectionner une option",
+                
+                // Q5
+                "q5-label": "5. Si votre réponse est \"Oui\", veuillez préciser la raison principale ? <span class=\"required\">*</span>",
+                "q5-opt1": "Outil",
+                "q5-opt2": "Process",
+                "q5-opt3": "Clarté de la communication",
+                "q5-opt4": "Les 3 (réponses A, B et C)",
+                "q5-error": "Veuillez sélectionner une option",
+                
+                // Q6
+                "q6-label": "6. Comment évalueriez-vous l'accompagnement dans le process d'évaluation de la performance ? <span class=\"required\">*</span>",
+                "q6-description": "(présentation de la campagne d'évaluation de la performance, disponibilité des informations, facilité à comprendre les fonctionnalités de l'outil, réponses à vos questions éventuelles, etc.)",
+                "q6-opt1": "Excellent",
+                "q6-opt2": "Bon",
+                "q6-opt3": "Faible",
+                "q6-opt4": "Très Faible",
+                "q6-error": "Veuillez sélectionner une option",
+                
+                // Q7
+                "q7-label": "7. Quelle est votre appréciation de la qualité de l'échange avec votre manager lors de votre entretien annuel de performance 2024 ? <span class=\"required\">*</span>",
+                "q7-opt1": "Très satisfaisante",
+                "q7-opt2": "Plutôt satisfaite",
+                "q7-opt3": "Plutôt insatisfaite",
+                "q7-opt4": "Très insatisfaite",
+                "q7-error": "Veuillez sélectionner une option",
+                
+                // Q8
+                "q8-label": "8. Si vous avez reçu du feedback pour votre collaborateur(trice), a-t-il été utile pour son évaluation de performance ? <span class=\"required\">*</span>",
+                "q8-opt1": "Oui",
+                "q8-opt2": "Non",
+                "q8-error": "Veuillez sélectionner une option",
+                
+                // Q9
+                "q9-label": "9. Si votre réponse est \"Non\", veuillez préciser les raisons <span class=\"required\">*</span>",
+                "q9-error": "Veuillez fournir votre réponse",
+                
+                // Part 2
+                "part2-title": "Partie 2 : Cycle annuel de rémunération 2024",
+                
+                // Q10
+                "q10-label": "10. Quel est votre niveau de satisfaction quant au déroulé du cycle annuel de rémunération 2024 ? <span class=\"required\">*</span>",
+                "q10-opt1": "Très satisfait",
+                "q10-opt2": "Plutôt satisfait",
+                "q10-opt3": "Plutôt insatisfait",
+                "q10-opt4": "Très insatisfait",
+                "q10-error": "Veuillez sélectionner une option",
+                
+                // Q11
+                "q11-label": "11. Quels ont été les points forts du cycle annuel de rémunération 2024 ? <span class=\"required\">*</span>",
+                "q11-opt1": "Process",
+                "q11-opt2": "Outil",
+                "q11-opt3": "Clarté de la communication",
+                "q11-opt4": "Réponses A, B et C",
+                "q11-opt5": "Aucun",
+                "q11-error": "Veuillez sélectionner une option",
+                
+                // Q12
+                "q12-label": "12. Souhaitez-vous détailler votre réponse apportée à la question 11 ? <span class=\"required\">*</span>",
+                "q12-error": "Veuillez fournir votre réponse",
+                
+                // Q13
+                "q13-label": "13. Quels seraient les domaines d'amélioration du cycle annuel de rémunération 2024 ? <span class=\"required\">*</span>",
+                "q13-opt1": "Process",
+                "q13-opt2": "Outil",
+                "q13-opt3": "Clarté de la communication",
+                "q13-opt4": "Les 3 (réponses A, B et C)",
+                "q13-opt5": "Aucune",
+                "q13-error": "Veuillez sélectionner une option",
+                
+                // Q14
+                "q14-label": "14. Quels seraient vos suggestions d'amélioration ?",
+                
+                // Q15
+                "q15-label": "15. Quelle a été votre expérience utilisateur dans la saisie des augmentations individuelles de votre équipe dans Workday ? <span class=\"required\">*</span>",
+                "q15-opt1": "Très satisfaisante",
+                "q15-opt2": "Plutôt satisfaisante",
+                "q15-opt3": "Peu satisfaisante",
+                "q15-opt4": "Insatisfaisante",
+                "q15-error": "Veuillez sélectionner une option",
+                
+                // Buttons
+                "next-btn": "Suivant →",
+                "prev-btn": "← Précédent",
+                "submit-btn": "Soumettre",
+                "submitting-text": "Soumission en cours...",
+                
+                // Thank You page
+                "thank-you-title": "Merci !",
+                "thank-you-message1": "Vos commentaires ont été soumis avec succès.",
+                "thank-you-message2": "Vos réponses nous aideront à améliorer les processus d'évaluation de la performance et de rémunération.",
+                
+                // Footer
+                "required-fields-note": "Tous les champs obligatoires sont marqués d'un astérisque (*)"
+            }
+        };
+        
+        // Current language
+        let currentLanguage = 'en';
+        
+        // Function to update the UI with translations
+        function updateUILanguage(language) {
+            const translation = translations[language];
+            
+            // Update all translatable elements
+            for (const [id, text] of Object.entries(translation)) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.innerHTML = text;
+                }
+            }
+            
+            // Update select placeholder
+            if (language === 'fr') {
+                document.querySelector('#country option[value=""]').textContent = "-- Sélectionner un pays --";
+            } else {
+                document.querySelector('#country option[value=""]').textContent = "-- Select Country --";
+            }
+            
+            // Update error messages for all questions
+            document.querySelectorAll('.error-message').forEach(element => {
+                if (language === 'fr') {
+                    if (element.textContent.includes('Please select')) {
+                        element.textContent = "Veuillez sélectionner une option";
+                    } else if (element.textContent.includes('Please provide')) {
+                        element.textContent = "Veuillez fournir votre réponse";
+                    }
+                } else {
+                    if (element.textContent.includes('Veuillez sélectionner')) {
+                        element.textContent = "Please select an option";
+                    } else if (element.textContent.includes('Veuillez fournir')) {
+                        element.textContent = "Please provide your response";
+                    }
+                }
+            });
+        }
+        
+        // Function to switch language
+        function switchLanguage(language) {
+            if (language === currentLanguage) return;
+            
+            // Update active button
+            document.getElementById('en-btn').classList.toggle('active', language === 'en');
+            document.getElementById('fr-btn').classList.toggle('active', language === 'fr');
+            
+            // Update UI language
+            updateUILanguage(language);
+            
+            // Set current language
+            currentLanguage = language;
+            
+            // Set HTML language attribute
+            document.documentElement.lang = language;
+        }
+        
         // Function to toggle conditional questions
         function toggleConditionalQuestion(questionId, show) {
             const question = document.getElementById(questionId);
@@ -747,6 +1098,7 @@
                 // Show loading state
                 const submitButton = document.querySelector('.btn-submit');
                 submitButton.disabled = true;
+                submitButton.classList.add('is-loading');
                 
                 // Add spinner if not already present
                 let spinner = submitButton.querySelector('.spinner');
@@ -774,7 +1126,8 @@
                     q12: document.getElementById('q12').value,
                     q13: document.querySelector('input[name="q13"]:checked')?.value || '',
                     q14: document.getElementById('q14').value,
-                    q15: document.querySelector('input[name="q15"]:checked')?.value || ''
+                    q15: document.querySelector('input[name="q15"]:checked')?.value || '',
+                    language: currentLanguage // Add the current language to the form data
                 };
                 
                 console.log('Form data being sent:', JSON.stringify(formData));
@@ -795,33 +1148,44 @@
                             window.scrollTo(0, 0);
                         } catch (e) {
                             console.error('Error parsing response:', e);
-                            alert('Error processing response. Please try again or contact support.');
+                            alert(currentLanguage === 'fr' ? 
+                                'Erreur lors du traitement de la réponse. Veuillez réessayer ou contacter le support.' : 
+                                'Error processing response. Please try again or contact support.');
                             
                             // Reset button state
                             submitButton.disabled = false;
+                            submitButton.classList.remove('is-loading');
                             spinner.style.display = 'none';
                         }
                     } else {
                         console.error('Error response:', xhr.status, xhr.responseText);
                         try {
                             const errorResult = JSON.parse(xhr.responseText);
-                            alert('Error: ' + (errorResult.error || 'Failed to submit survey') + '. Please try again or contact support.');
+                            alert(currentLanguage === 'fr' ? 
+                                'Erreur : ' + (errorResult.error || 'Échec de soumission du questionnaire') + '. Veuillez réessayer ou contacter le support.' : 
+                                'Error: ' + (errorResult.error || 'Failed to submit survey') + '. Please try again or contact support.');
                         } catch (e) {
-                            alert('Error submitting survey. Please try again or contact support.');
+                            alert(currentLanguage === 'fr' ? 
+                                'Erreur lors de la soumission du questionnaire. Veuillez réessayer ou contacter le support.' : 
+                                'Error submitting survey. Please try again or contact support.');
                         }
                         
                         // Reset button state
                         submitButton.disabled = false;
+                        submitButton.classList.remove('is-loading');
                         spinner.style.display = 'none';
                     }
                 };
                 
                 xhr.onerror = function() {
                     console.error('Network error occurred');
-                    alert('Network error occurred. Please check your connection and try again.');
+                    alert(currentLanguage === 'fr' ? 
+                        'Une erreur réseau s\'est produite. Veuillez vérifier votre connexion et réessayer.' : 
+                        'Network error occurred. Please check your connection and try again.');
                     
                     // Reset button state
                     submitButton.disabled = false;
+                    submitButton.classList.remove('is-loading');
                     spinner.style.display = 'none';
                 };
                 
@@ -835,8 +1199,11 @@
             }
         }
         
-        // Initialize conditional questions
+        // Initialize language and conditional questions
         document.addEventListener('DOMContentLoaded', function() {
+            // Set default language
+            updateUILanguage(currentLanguage);
+            
             // Check if any conditional question should be visible initially
             const q4YesRadio = document.querySelector('input[name="q4"][value="Yes"]');
             if (q4YesRadio && q4YesRadio.checked) {
