@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>2024 Annual Performance & Compensation Cycles - Managers Survey</title>
     <style>
         /* General styling */
@@ -12,7 +12,7 @@
             color: #333;
             background-color: #f5f7fa;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
         }
         
         .container {
@@ -22,12 +22,24 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            width: 100%;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+            
+            .container {
+                border-radius: 0;
+            }
         }
         
         .header {
             background-color: #2563eb;
             color: white;
-            padding: 20px;
+            padding: 20px 10px;
             text-align: center;
             position: relative;
         }
@@ -42,8 +54,25 @@
             font-size: 0.9rem;
         }
         
+        @media (max-width: 576px) {
+            .header h1 {
+                font-size: 1.3rem;
+                margin-top: 40px;
+            }
+            .language-toggle {
+                top: 10px;
+                right: 10px;
+            }
+        }
+        
         .form-container {
-            padding: 24px;
+            padding: 20px 15px;
+        }
+        
+        @media (max-width: 576px) {
+            .form-container {
+                padding: 15px 10px;
+            }
         }
         
         /* Language toggle */
@@ -92,7 +121,7 @@
         
         /* Question styling */
         .question {
-            margin-bottom: 32px;
+            margin-bottom: 30px;
         }
         
         .question label {
@@ -112,17 +141,30 @@
         }
         
         .option {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .option label {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             font-weight: normal;
         }
         
         .option input[type="radio"] {
             margin-right: 8px;
+            margin-top: 3px;
+        }
+        
+        @media (max-width: 576px) {
+            .question {
+                margin-bottom: 25px;
+            }
+            .option {
+                margin-bottom: 8px;
+            }
+            .option label {
+                font-size: 0.95rem;
+            }
         }
         
         /* Form controls */
@@ -188,6 +230,13 @@
         
         .btn-submit:hover {
             background-color: #059669;
+        }
+        
+        @media (max-width: 576px) {
+            button {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
         }
         
         /* Error messages */
