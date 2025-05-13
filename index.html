@@ -149,20 +149,26 @@
             color: #dc2626;
         }
         
+        /* New options container styling */
+        .options-container {
+            margin-left: 0;
+        }
+        
         .option {
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
         }
         
         .option label {
-            display: flex;
-            align-items: center;
             font-weight: normal;
-            padding: 3px 0;
+            margin-bottom: 0;
+            cursor: pointer;
+            padding-top: 1px;
         }
         
         .option input[type="radio"] {
             margin-right: 8px;
-            margin-top: 0;
         }
         
         @media (max-width: 576px) {
@@ -380,29 +386,31 @@
             
             <div class="question" id="q1Question">
                 <label id="q1-label">1. How satisfied are you with the 2024 annual performance review? <span class="required">*</span></label>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q1" value="Fully satisfied">
-                        <span id="q1-opt1">Fully satisfied</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q1" value="Mostly satisfied">
-                        <span id="q1-opt2">Mostly satisfied</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q1" value="Mostly unsatisfied">
-                        <span id="q1-opt3">Mostly unsatisfied</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q1" value="Very unsatisfied">
-                        <span id="q1-opt4">Very unsatisfied</span>
-                    </label>
+                <div class="options-container">
+                    <div class="option">
+                        <input type="radio" id="q1-a" name="q1" value="Fully satisfied">
+                        <label for="q1-a">
+                            <span id="q1-opt1">Fully satisfied</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1-b" name="q1" value="Mostly satisfied">
+                        <label for="q1-b">
+                            <span id="q1-opt2">Mostly satisfied</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1-c" name="q1" value="Mostly unsatisfied">
+                        <label for="q1-c">
+                            <span id="q1-opt3">Mostly unsatisfied</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1-d" name="q1" value="Very unsatisfied">
+                        <label for="q1-d">
+                            <span id="q1-opt4">Very unsatisfied</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="error-message" id="q1-error">Please select an option</div>
             </div>
@@ -421,17 +429,19 @@
             
             <div class="question" id="q4Question">
                 <label id="q4-label">4. Did you face any challenges during the 2024 annual performance review? <span class="required">*</span></label>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q4" value="Yes" onchange="toggleConditionalQuestion('q5ConditionalQuestion', true)">
-                        <span id="q4-opt1">Yes</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q4" value="No" onchange="toggleConditionalQuestion('q5ConditionalQuestion', false)">
-                        <span id="q4-opt2">No</span>
-                    </label>
+                <div class="options-container">
+                    <div class="option">
+                        <input type="radio" id="q4-a" name="q4" value="Yes" onchange="toggleConditionalQuestion('q5ConditionalQuestion', true)">
+                        <label for="q4-a">
+                            <span id="q4-opt1">Yes</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4-b" name="q4" value="No" onchange="toggleConditionalQuestion('q5ConditionalQuestion', false)">
+                        <label for="q4-b">
+                            <span id="q4-opt2">No</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="error-message" id="q4-error">Please select an option</div>
             </div>
@@ -439,29 +449,31 @@
             <div class="conditional-question" id="q5ConditionalQuestion">
                 <div class="question" id="q5Question">
                     <label id="q5-label">5. If yes, please specify the main challenge: <span class="required">*</span></label>
-                    <div class="option">
-                        <label>
-                            <input type="radio" name="q5" value="Tool">
-                            <span id="q5-opt1">Tool</span>
-                        </label>
-                    </div>
-                    <div class="option">
-                        <label>
-                            <input type="radio" name="q5" value="Process">
-                            <span id="q5-opt2">Process</span>
-                        </label>
-                    </div>
-                    <div class="option">
-                        <label>
-                            <input type="radio" name="q5" value="Clarity of communication">
-                            <span id="q5-opt3">Clarity of communication</span>
-                        </label>
-                    </div>
-                    <div class="option">
-                        <label>
-                            <input type="radio" name="q5" value="All of the above">
-                            <span id="q5-opt4">All of the above</span>
-                        </label>
+                    <div class="options-container">
+                        <div class="option">
+                            <input type="radio" id="q5-a" name="q5" value="Tool">
+                            <label for="q5-a">
+                                <span id="q5-opt1">Tool</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q5-b" name="q5" value="Process">
+                            <label for="q5-b">
+                                <span id="q5-opt2">Process</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q5-c" name="q5" value="Clarity of communication">
+                            <label for="q5-c">
+                                <span id="q5-opt3">Clarity of communication</span>
+                            </label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" id="q5-d" name="q5" value="All of the above">
+                            <label for="q5-d">
+                                <span id="q5-opt4">All of the above</span>
+                            </label>
+                        </div>
                     </div>
                     <div class="error-message" id="q5-error">Please select an option</div>
                 </div>
@@ -470,75 +482,81 @@
             <div class="question" id="q6Question">
                 <label id="q6-label">6. How would you assess the support while participating in the 2024 annual performance review? <span class="required">*</span></label>
                 <p class="description" id="q6-description">(presentation of the performance review campaign, access to information, Workday navigation understanding, answers provided, etc.)</p>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q6" value="Excellent">
-                        <span id="q6-opt1">Excellent</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q6" value="Good">
-                        <span id="q6-opt2">Good</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q6" value="Light">
-                        <span id="q6-opt3">Light</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q6" value="Very light">
-                        <span id="q6-opt4">Very light</span>
-                    </label>
+                <div class="options-container">
+                    <div class="option">
+                        <input type="radio" id="q6-a" name="q6" value="Excellent">
+                        <label for="q6-a">
+                            <span id="q6-opt1">Excellent</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6-b" name="q6" value="Good">
+                        <label for="q6-b">
+                            <span id="q6-opt2">Good</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6-c" name="q6" value="Light">
+                        <label for="q6-c">
+                            <span id="q6-opt3">Light</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6-d" name="q6" value="Very light">
+                        <label for="q6-d">
+                            <span id="q6-opt4">Very light</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="error-message" id="q6-error">Please select an option</div>
             </div>
             
             <div class="question" id="q7Question">
                 <label id="q7-label">7. How would you assess the quality of the discussion with your manager while participating in the 2024 annual performance review? <span class="required">*</span></label>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q7" value="Fully satisfied">
-                        <span id="q7-opt1">Fully satisfied</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q7" value="Mostly satisfied">
-                        <span id="q7-opt2">Mostly satisfied</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q7" value="Mostly unsatisfied">
-                        <span id="q7-opt3">Mostly unsatisfied</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q7" value="Very unsatisfied">
-                        <span id="q7-opt4">Very unsatisfied</span>
-                    </label>
+                <div class="options-container">
+                    <div class="option">
+                        <input type="radio" id="q7-a" name="q7" value="Fully satisfied">
+                        <label for="q7-a">
+                            <span id="q7-opt1">Fully satisfied</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7-b" name="q7" value="Mostly satisfied">
+                        <label for="q7-b">
+                            <span id="q7-opt2">Mostly satisfied</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7-c" name="q7" value="Mostly unsatisfied">
+                        <label for="q7-c">
+                            <span id="q7-opt3">Mostly unsatisfied</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7-d" name="q7" value="Very unsatisfied">
+                        <label for="q7-d">
+                            <span id="q7-opt4">Very unsatisfied</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="error-message" id="q7-error">Please select an option</div>
             </div>
             
             <div class="question" id="q8Question">
                 <label id="q8-label">8. If you received feedback for a direct report, was it useful for their annual performance review? <span class="required">*</span></label>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q8" value="Yes" onchange="toggleConditionalQuestion('q9ConditionalQuestion', true)">
-                        <span id="q8-opt1">Yes</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q8" value="No" onchange="toggleConditionalQuestion('q9ConditionalQuestion', false)">
-                        <span id="q8-opt2">No</span>
-                    </label>
+                <div class="options-container">
+                    <div class="option">
+                        <input type="radio" id="q8-a" name="q8" value="Yes" onchange="toggleConditionalQuestion('q9ConditionalQuestion', true)">
+                        <label for="q8-a">
+                            <span id="q8-opt1">Yes</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8-b" name="q8" value="No" onchange="toggleConditionalQuestion('q9ConditionalQuestion', false)">
+                        <label for="q8-b">
+                            <span id="q8-opt2">No</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="error-message" id="q8-error">Please select an option</div>
             </div>
@@ -564,64 +582,68 @@
             
             <div class="question" id="q10Question">
                 <label id="q10-label">10. How satisfied are you with the 2024 annual compensation review? <span class="required">*</span></label>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q10" value="Fully satisfied">
-                        <span id="q10-opt1">Fully satisfied</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q10" value="Mostly satisfied">
-                        <span id="q10-opt2">Mostly satisfied</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q10" value="Mostly unsatisfied">
-                        <span id="q10-opt3">Mostly unsatisfied</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q10" value="Very unsatisfied">
-                        <span id="q10-opt4">Very unsatisfied</span>
-                    </label>
+                <div class="options-container">
+                    <div class="option">
+                        <input type="radio" id="q10-a" name="q10" value="Fully satisfied">
+                        <label for="q10-a">
+                            <span id="q10-opt1">Fully satisfied</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10-b" name="q10" value="Mostly satisfied">
+                        <label for="q10-b">
+                            <span id="q10-opt2">Mostly satisfied</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10-c" name="q10" value="Mostly unsatisfied">
+                        <label for="q10-c">
+                            <span id="q10-opt3">Mostly unsatisfied</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10-d" name="q10" value="Very unsatisfied">
+                        <label for="q10-d">
+                            <span id="q10-opt4">Very unsatisfied</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="error-message" id="q10-error">Please select an option</div>
             </div>
             
             <div class="question" id="q11Question">
                 <label id="q11-label">11. What were the strengths of the 2024 annual compensation review? <span class="required">*</span></label>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q11" value="Process">
-                        <span id="q11-opt1">Process</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q11" value="Tool">
-                        <span id="q11-opt2">Tool</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q11" value="Clarity of communication">
-                        <span id="q11-opt3">Clarity of communication</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q11" value="All of the above">
-                        <span id="q11-opt4">All of the above</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q11" value="None">
-                        <span id="q11-opt5">None</span>
-                    </label>
+                <div class="options-container">
+                    <div class="option">
+                        <input type="radio" id="q11-a" name="q11" value="Process">
+                        <label for="q11-a">
+                            <span id="q11-opt1">Process</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q11-b" name="q11" value="Tool">
+                        <label for="q11-b">
+                            <span id="q11-opt2">Tool</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q11-c" name="q11" value="Clarity of communication">
+                        <label for="q11-c">
+                            <span id="q11-opt3">Clarity of communication</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q11-d" name="q11" value="All of the above">
+                        <label for="q11-d">
+                            <span id="q11-opt4">All of the above</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q11-e" name="q11" value="None">
+                        <label for="q11-e">
+                            <span id="q11-opt5">None</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="error-message" id="q11-error">Please select an option</div>
             </div>
@@ -634,35 +656,37 @@
             
             <div class="question" id="q13Question">
                 <label id="q13-label">13. What would be your recommendations for improvement for the 2024 annual compensation review? <span class="required">*</span></label>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q13" value="Process">
-                        <span id="q13-opt1">Process</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q13" value="Tool">
-                        <span id="q13-opt2">Tool</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q13" value="Clarity of communication">
-                        <span id="q13-opt3">Clarity of communication</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q13" value="All of the above">
-                        <span id="q13-opt4">All of the above</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q13" value="None">
-                        <span id="q13-opt5">None</span>
-                    </label>
+                <div class="options-container">
+                    <div class="option">
+                        <input type="radio" id="q13-a" name="q13" value="Process">
+                        <label for="q13-a">
+                            <span id="q13-opt1">Process</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q13-b" name="q13" value="Tool">
+                        <label for="q13-b">
+                            <span id="q13-opt2">Tool</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q13-c" name="q13" value="Clarity of communication">
+                        <label for="q13-c">
+                            <span id="q13-opt3">Clarity of communication</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q13-d" name="q13" value="All of the above">
+                        <label for="q13-d">
+                            <span id="q13-opt4">All of the above</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q13-e" name="q13" value="None">
+                        <label for="q13-e">
+                            <span id="q13-opt5">None</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="error-message" id="q13-error">Please select an option</div>
             </div>
@@ -674,29 +698,31 @@
             
             <div class="question" id="q15Question">
                 <label id="q15-label">15. What was your user experience when entering your team's individual increases in Workday? <span class="required">*</span></label>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q15" value="Fully satisfied">
-                        <span id="q15-opt1">Fully satisfied</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q15" value="Mostly satisfied">
-                        <span id="q15-opt2">Mostly satisfied</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q15" value="Mostly unsatisfied">
-                        <span id="q15-opt3">Mostly unsatisfied</span>
-                    </label>
-                </div>
-                <div class="option">
-                    <label>
-                        <input type="radio" name="q15" value="Very unsatisfied">
-                        <span id="q15-opt4">Very unsatisfied</span>
-                    </label>
+                <div class="options-container">
+                    <div class="option">
+                        <input type="radio" id="q15-a" name="q15" value="Fully satisfied">
+                        <label for="q15-a">
+                            <span id="q15-opt1">Fully satisfied</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q15-b" name="q15" value="Mostly satisfied">
+                        <label for="q15-b">
+                            <span id="q15-opt2">Mostly satisfied</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q15-c" name="q15" value="Mostly unsatisfied">
+                        <label for="q15-c">
+                            <span id="q15-opt3">Mostly unsatisfied</span>
+                        </label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q15-d" name="q15" value="Very unsatisfied">
+                        <label for="q15-d">
+                            <span id="q15-opt4">Very unsatisfied</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="error-message" id="q15-error">Please select an option</div>
             </div>
