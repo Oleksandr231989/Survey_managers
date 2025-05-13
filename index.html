@@ -47,6 +47,15 @@
         .header h1 {
             margin: 35px 0 0 0;
             font-size: 1.5rem;
+            line-height: 1.4;
+        }
+        
+        #survey-title-part1 {
+            display: block;
+        }
+        
+        #survey-title-part2 {
+            display: block;
         }
         
         .header p {
@@ -330,7 +339,10 @@
                 <button id="en-btn" class="active" onclick="switchLanguage('en')">EN</button>
                 <button id="fr-btn" onclick="switchLanguage('fr')">FR</button>
             </div>
-            <h1 id="survey-title">2024 Annual Performance & Compensation Cycles - <br>Managers Survey</h1>
+            <h1 id="survey-title">
+                <span id="survey-title-part1">2024 Annual Performance & Compensation Cycles -</span>
+                <span id="survey-title-part2">Managers Survey</span>
+            </h1>
             <p id="survey-subtitle">Your feedback will help us make your next experience even better!</p>
         </div>
         
@@ -714,7 +726,8 @@
         const translations = {
             en: {
                 // Header
-                "survey-title": "2024 Annual Performance & Compensation Cycles - Managers Survey",
+                "survey-title-part1": "2024 Annual Performance & Compensation Cycles -",
+                "survey-title-part2": "Managers Survey",
                 "survey-subtitle": "Your feedback will help us make your next experience even better!",
                 
                 // Country field
@@ -841,7 +854,8 @@
             },
             fr: {
                 // Header
-                "survey-title": "Cycles annuels de performance et de rémunération 2024 - Questionnaire managers",
+                "survey-title-part1": "Cycles annuels de performance et de rémunération 2024 -",
+                "survey-title-part2": "Questionnaire managers",
                 "survey-subtitle": "Vos retours nous aideront à améliorer votre expérience l'année prochaine !",
                 
                 // Country field
